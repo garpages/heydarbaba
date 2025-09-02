@@ -1,258 +1,149 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>منوی رستوران حیدر بابا</title>
-    <meta name="description" content="نمایش منوی رستوران حیدر بابا" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رستوران حیدر بابا</title>
     <style>
-        :root {
-            --bg: #1a1a1a;
-            --card: #222;
-            --text: #f5f5f5;
-            --muted: #b0b0b0;
-            --accent: #c9a227;
-            /* رنگ طلایی مجلسی */
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html,
         body {
-            height: 100%;
             margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: "IRANSans", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
+            font-family: "Tahoma", sans-serif;
+            background: #111;
+            color: #f5f5f5;
+            overflow-x: hidden;
         }
 
-        .wrap {
-            min-height: 100%;
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-        }
-
-        header {
-            position: sticky;
+        /* صفحه لوگو (Splash) */
+        #splash {
+            position: fixed;
             top: 0;
-            z-index: 10;
-            backdrop-filter: blur(8px);
-            background: rgba(26, 26, 26, 0.9);
-            border-bottom: 1px solid rgba(255, 255, 255, .08);
-        }
-
-        .container {
-            width: min(1100px, 92vw);
-            margin-inline: auto;
-            padding: 14px 0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 700;
-            letter-spacing: .5px;
-        }
-
-        .brand .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 999px;
-            background: var(--accent);
-            box-shadow: 0 0 18px var(--accent);
-        }
-
-        .brand h1 {
-            margin: 0;
-            font-size: clamp(20px, 3vw, 26px);
-            color: var(--accent);
-            font-family: "B Nazanin", serif;
-        }
-
-        .actions {
-            margin-inline-start: auto;
-            display: inline-flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .btn {
-            appearance: none;
-            border: 1px solid rgba(255, 255, 255, .12);
-            background: linear-gradient(135deg, #3a3a3a, #1e1e1e);
-            color: var(--text);
-            border-radius: 18px;
-            padding: 10px 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all .2s ease;
-        }
-
-        .btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        main {
-            padding: 20px 0 0;
-        }
-
-        .viewer-card {
-            width: min(1100px, 92vw);
-            margin-inline: auto;
-            background: linear-gradient(160deg, #2a2a2a, #1b1b1b);
-            border: 1px solid rgba(255, 255, 255, .08);
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
-            overflow: hidden;
-            display: grid;
-            grid-template-rows: auto 1fr;
-        }
-
-        .viewer-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 14px 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, .08);
-            background: rgba(0, 0, 0, .2);
-        }
-
-        .viewer-head .title {
-            font-size: 15px;
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        .viewer {
-            height: calc(100vh - 160px);
-            background: #0f0f0f;
-            display: grid;
-            place-items: center;
-        }
-
-        .viewer iframe,
-        .viewer embed,
-        .viewer object {
+            left: 0;
             width: 100%;
             height: 100%;
-            border: 0;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 1000;
+            animation: fadeOut 1s ease forwards;
+            animation-delay: 2s;
+            /* زمان نمایش ۲ ثانیه */
         }
 
-        .fallback {
+        .logo-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: #d4af37;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+        }
+
+        .logo-circle h1 {
+            font-size: 1.4rem;
+            color: #000;
+            margin: 0;
             text-align: center;
-            padding: 30px;
-            color: var(--muted);
+            font-family: "B Titr", Tahoma, sans-serif;
+            line-height: 1.6;
         }
 
-        .fallback a {
-            color: var(--accent);
-            font-weight: 700;
+        #splash p {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #f0e68c;
         }
 
-        footer {
-            padding: 18px 0 24px;
-            color: var(--muted);
-            font-size: 13px;
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* هدر */
+        header {
+            background: linear-gradient(135deg, #000, #1a1a1a);
+            color: #d4af37;
+            padding: 20px;
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, .08);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+            position: relative;
+            z-index: 10;
         }
 
-        code.inline {
-            background: rgba(255, 255, 255, .08);
-            padding: .15em .45em;
-            border-radius: 8px;
-            font-family: monospace;
-            font-size: .95em;
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: bold;
+            font-family: "B Titr", Tahoma, sans-serif;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            font-size: 1rem;
+            color: #f0e68c;
+        }
+
+        /* دکمه دانلود */
+        .btn-download {
+            display: inline-block;
+            margin: 15px auto;
+            padding: 12px 24px;
+            background: #d4af37;
+            color: #000;
+            font-weight: bold;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-download:hover {
+            background: #b88a2b;
+            transform: scale(1.05);
+        }
+
+        /* PDF */
+        .pdf-container {
+            width: 100%;
+            height: 90vh;
+            border: none;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-container {
+                height: 80vh;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="wrap">
-        <header>
-            <div class="container">
-                <div class="brand" title="رستوران حیدر بابا">
-                    <span class="dot" aria-hidden="true"></span>
-                    <h1 id="restaurantName">حیدر بابا</h1>
-                </div>
-                <div class="actions">
-                    <a id="downloadLink" class="btn" href="#" download>دانلود منو (PDF)</a>
-                </div>
-            </div>
-        </header>
-
-        <main>
-            <div class="viewer-card">
-                <div class="viewer-head">
-                    <div class="title">منوی رستوران</div>
-                    <div style="display:flex; gap:10px; align-items:center">
-                        <button class="btn" id="openInNewTab" type="button">باز کردن در تب جدید</button>
-                    </div>
-                </div>
-                <div class="viewer" id="viewer">
-                    <!-- PDF در اینجا نمایش داده می‌شود -->
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            <div class="container" style="justify-content:center;">
-                <span>© کلیه حقوق متعلق به رستوران <strong style="color:var(--accent);">حیدر بابا</strong>
-                    می‌باشد.</span>
-            </div>
-        </footer>
+    <!-- Splash Screen -->
+    <div id="splash">
+        <div class="logo-circle">
+            <h1>رستوران<br>حیدر بابا</h1>
+        </div>
+        <p>خوش آمدید</p>
     </div>
 
-    <script>
-        // مسیر/نام فایل PDF خود را اینجا تنظیم کنید:
-        const PDF_URL = "menu.pdf"; // مثال: "menu.pdf" یا لینک کامل
+    <!-- محتوا -->
+    <header>
+        <h1>رستوران حیدر بابا</h1>
+        <p>منوی رستوران</p>
+    </header>
 
-        const viewerEl = document.getElementById('viewer');
-        const dl = document.getElementById('downloadLink');
-        const openBtn = document.getElementById('openInNewTab');
+    <div style="text-align:center;">
+        <a href="menu.pdf" class="btn-download" download>دانلود منو (PDF)</a>
+    </div>
 
-        dl.href = PDF_URL;
-        openBtn.addEventListener('click', () => window.open(PDF_URL, '_blank', 'noopener'));
-
-        function canEmbedPDF() {
-            const ua = navigator.userAgent.toLowerCase();
-            const isIOS = /iphone|ipad|ipod/.test(ua);
-            if (isIOS) return false;
-            return true;
-        }
-
-        function renderViewer() {
-            if (canEmbedPDF()) {
-                const embed = document.createElement('embed');
-                embed.src = PDF_URL + "#toolbar=1&navpanes=0&scrollbar=1";
-                embed.type = 'application/pdf';
-                embed.setAttribute('aria-label', 'نمایش منوی PDF');
-                viewerEl.appendChild(embed);
-            } else {
-                const box = document.createElement('div');
-                box.className = 'fallback';
-                box.innerHTML = `نمایش درون‌صفحه پشتیبانی نمی‌شود.<br/> 
-          می‌توانید <a href="${PDF_URL}" target="_blank" rel="noopener">اینجا</a> باز کنید.`;
-                viewerEl.appendChild(box);
-            }
-        }
-
-        renderViewer();
-    </script>
+    <iframe src="menu.pdf" class="pdf-container"></iframe>
 </body>
 
 </html>
